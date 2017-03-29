@@ -9,7 +9,6 @@ package projet;
  *
  * @author p1410766
  */
-public class Coup {
-    Position debut, fin;
-    
+public enum EnumCouleur {
+    BLANC, NOIR
 }

@@ -11,8 +11,13 @@ package projet;
  */
 public class Roi extends Piece {
     
-    public Roi(couleur c) {
+    public Roi(EnumCouleur c) {
         super(c);
+    }
+
+    @Override
+    public void calculeListeCoups(Plateau plat, Position pos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

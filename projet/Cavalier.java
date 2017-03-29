@@ -11,8 +11,13 @@ package projet;
  */
 public class Cavalier extends Piece {
     
-    public Cavalier(couleur c) {
+    public Cavalier(EnumCouleur c) {
         super(c);
+    }
+
+    @Override
+    public void calculeListeCoups(Plateau plat, Position pos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

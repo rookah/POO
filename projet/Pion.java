@@ -11,8 +11,13 @@ package projet;
  */
 public class Pion extends Piece {
     
-    public Pion(couleur c) {
+    public Pion(EnumCouleur c) {
         super(c);
+    }
+
+    @Override
+    public void calculeListeCoups(Plateau plat, Position pos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

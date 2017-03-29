@@ -9,7 +9,11 @@ package projet;
  *
  * @author p1410766
  */
-public class Coup {
-    Position debut, fin;
+public class Position {
+    int x, y;
     
+    public Position(int _x, int _y) {
+        x = _x;
+        y = _y;
+    }
 }

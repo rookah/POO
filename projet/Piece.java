@@ -5,20 +5,20 @@
  */
 package projet;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author p1410766
  */
 public abstract class Piece {
-    public enum couleur {
-        BLANC, NOIR
+    
+    public EnumCouleur couleur;
+    public ArrayList<Coup> coupsPossibles;
+    
+    public Piece(EnumCouleur _couleur) {
+        this.couleur = _couleur;
     }
     
-    public couleur couleur;
-    public boolean prise;
-    
-    public Piece(couleur c) {
-        this.couleur = c;
-        this.prise = false;
-    }
+    public abstract void calculeListeCoups(Plateau plat, Position pos);
 }

@@ -19,7 +19,7 @@ public class Partie {
         joueurs[0] = j1;
         joueurs[1] = j2;
         joueurActuel = joueurs[0];
-        plateau = new Plateau();      
+        plateau = new Plateau();
     }
     
     private Joueur getJoueurSuivant() {
