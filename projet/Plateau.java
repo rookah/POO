@@ -39,4 +39,18 @@ public class Plateau {
         grille[0][4] = new Roi(EnumCouleur.BLANC);
         grille[7][4] = new Roi(EnumCouleur.NOIR);
     }
+    
+    public Piece getPieceGrille(Position pos) {
+        return grille[pos.x][pos.y];
+    }
+    
+    public void appliqueCoup(Coup coup) {
+        Piece temp = grille[coup.debut.x][coup.debut.y];
+        grille[coup.debut.x][coup.debut.y] = null;
+        grille[coup.fin.x][coup.fin.y] = temp;
+    }
+    
+    public void setPieceGrille(Piece p, Position pos) {
+        grille[pos.x][pos.y] = p;
+    }
 }

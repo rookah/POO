@@ -22,13 +22,28 @@ public class Partie {
         plateau = new Plateau();
     }
     
+    private void rempliListeJoueurs() {
+        Piece temp;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if ((temp = plateau.getPieceGrille(new Position(i, j))) != null) {
+                    if (temp.couleur == joueurs[0].couleur)
+                        joueurs[0].ajoutePiece(temp);
+                    else
+                        joueurs[1].ajoutePiece(temp);
+                }
+            }
+        }
+    }
+    
+    private boolean verifieEchec(Coup coup) {
+        return false;
+    }
+    
     private Joueur getJoueurSuivant() {
         if (joueurActuel == joueurs[0])
             return joueurs[1];
         else
             return joueurs[0];
     }
-    
-    
-
 }

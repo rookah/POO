@@ -11,13 +11,13 @@ package projet;
  */
 public class Tour extends Piece {
     
-    public Tour(EnumCouleur c) {
-        super(c);
+    public Tour(EnumCouleur _couleur) {
+        super(_couleur);
     }
 
     @Override
     public void calculeListeCoups(Plateau plat, Position pos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }

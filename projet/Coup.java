@@ -10,6 +10,12 @@ package projet;
  * @author p1410766
  */
 public class Coup {
-    Position debut, fin;
+    public Position debut, fin;
     
+    public Coup(Position _debut, Position _fin) {
+        debut.x = _debut.x;
+        debut.y = _debut.y;
+        fin.x = _fin.x;
+        fin.y = _fin.y;
+    }
 }
