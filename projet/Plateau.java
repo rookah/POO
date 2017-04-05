@@ -5,6 +5,8 @@
  */
 package projet;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author p1410766
@@ -23,15 +25,15 @@ public class Plateau {
             grille[6][i] = new Pion(EnumCouleur.NOIR);
             if (i == 0 || i == 7) {
                 grille[0][i] = new Tour(EnumCouleur.BLANC);
-                grille[0][i] = new Tour(EnumCouleur.NOIR);
+                grille[7][i] = new Tour(EnumCouleur.NOIR);
             }
             if (i == 1 || i == 6) {
                 grille[0][i] = new Cavalier(EnumCouleur.BLANC);
-                grille[0][i] = new Cavalier(EnumCouleur.NOIR);
+                grille[7][i] = new Cavalier(EnumCouleur.NOIR);
             }
             if (i == 2 || i == 5) {
                 grille[0][i] = new Fou(EnumCouleur.BLANC);
-                grille[0][i] = new Fou(EnumCouleur.NOIR);
+                grille[7][i] = new Fou(EnumCouleur.NOIR);
             }
         }
         grille[0][3] = new Dame(EnumCouleur.BLANC);
@@ -40,14 +42,24 @@ public class Plateau {
         grille[7][4] = new Roi(EnumCouleur.NOIR);
     }
     
-    public Piece getPieceGrille(Position pos) {
-        return grille[pos.x][pos.y];
-    }
-    
     public void appliqueCoup(Coup coup) {
-        Piece temp = grille[coup.debut.x][coup.debut.y];
+        Piece temp = getPieceGrille(coup.debut);
         grille[coup.debut.x][coup.debut.y] = null;
         grille[coup.fin.x][coup.fin.y] = temp;
+    }
+    
+    public ArrayList<Coup> coupsPossiblesPlateau(Piece p) {
+        ArrayList<Coup> ret = p.getCoupsPossiblesPiece();
+        for (int i = 0; i < ret.size(); i++) {
+            Position arrivee = ret.get(i).fin;
+            if (arrivee.x < 0 || arrivee.x > 7 || arrivee.y < 0 || arrivee.y > 7)
+                ret.remove(i);
+        }
+        return ret;
+    }
+    
+    public Piece getPieceGrille(Position pos) {
+        return grille[pos.x][pos.y];
     }
     
     public void setPieceGrille(Piece p, Position pos) {

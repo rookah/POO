@@ -20,5 +20,9 @@ public abstract class Piece {
         this.couleur = _couleur;
     }
     
-    public abstract void calculeListeCoups(Plateau plat, Position pos);
+    public ArrayList<Coup> getCoupsPossiblesPiece() {
+        return coupsPossibles;
+    }
+            
+    public abstract void calculeListeCoups(Position pos);
 }

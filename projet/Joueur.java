@@ -13,7 +13,8 @@ import java.util.ArrayList;
  */
 public class Joueur {
     public EnumCouleur couleur;
-    private ArrayList<Piece> pieces;
+    public ArrayList<Piece> pieces;
+    public ArrayList<Coup> coupsPossibles;
     
     public Joueur(EnumCouleur _couleur) {
         couleur = _couleur;
@@ -21,5 +22,11 @@ public class Joueur {
     
     public void ajoutePiece(Piece p) {
         pieces.add(p);
+    }
+    
+    public void calculeCoupsPossiblesJoueurActuel() {
+        for (int i = 0; i < pieces.size(); i++) {
+            
+        }
     }
 }

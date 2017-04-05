@@ -5,6 +5,8 @@
  */
 package projet;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author p1410766
@@ -24,9 +26,10 @@ public class Partie {
     
     private void rempliListeJoueurs() {
         Piece temp;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i <= 7; i++) {
+            for (int j = 0; j <= 7; j++) {
                 if ((temp = plateau.getPieceGrille(new Position(i, j))) != null) {
+                    temp.calculeListeCoups(new Position(i, j));
                     if (temp.couleur == joueurs[0].couleur)
                         joueurs[0].ajoutePiece(temp);
                     else
@@ -37,6 +40,7 @@ public class Partie {
     }
     
     private boolean verifieEchec(Coup coup) {
+        Piece temp = plateau.getPieceGrille(coup.debut);
         return false;
     }
     
@@ -45,5 +49,19 @@ public class Partie {
             return joueurs[1];
         else
             return joueurs[0];
+    }
+    
+    private void Test() {
+        rempliListeJoueurs();
+        calculeCoupsPossiblesJoueurActuel();
+    }
+    
+    public void calculeCoupsPossiblesJoueurActuel() {
+        joueurActuel.pieces.clear();
+        ArrayList<Coup> temp;
+        for (int i = 0; i < joueurActuel.pieces.size(); i++) {
+            temp = plateau.coupsPossiblesPlateau(joueurActuel.pieces.get(i));
+            joueurActuel.coupsPossibles.addAll(temp);
+        }
     }
 }

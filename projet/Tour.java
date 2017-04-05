@@ -16,7 +16,8 @@ public class Tour extends Piece {
     }
 
     @Override
-    public void calculeListeCoups(Plateau plat, Position pos) {
+    public void calculeListeCoups(Position pos) {
+        coupsPossibles.clear();
         for (int i = 1; i <= 7; i++) {
             coupsPossibles.add(new Coup(pos, new Position(pos.x + i, pos.y)));
             coupsPossibles.add(new Coup(pos, new Position(pos.x - i, pos.y)));
