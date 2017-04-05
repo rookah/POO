@@ -32,7 +32,6 @@ public class Joueur {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             pair.setValue(null);
-            it.remove();
         }
     }
 }

@@ -48,7 +48,8 @@ public class VueControleur extends Application {
     // Text affichage;
     Partie p;
     
-    ArrayList<Node> coupsPossibles;
+    ArrayList<Node> coupsPossiblesAffichage;
+    Piece pieceSelectionnee;
     
     @Override
     public void start(Stage primaryStage) {
@@ -67,6 +68,8 @@ public class VueControleur extends Application {
         int column = 0;
         int row = 0;
         
+        coupsPossiblesAffichage = new ArrayList<Node>();
+        
         // la vue observe les "update" du modèle, et réalise les mises à jour graphiques
         
         Image pionn = new Image("file:res/pionn.png", 50, 50, false, false);
@@ -83,7 +86,7 @@ public class VueControleur extends Application {
         Image cavalierb = new Image("file:res/cavalierb.png", 50, 50, false, false);
         Image tourb = new Image("file:res/tourb.png", 50, 50, false, false);
         
-        boolean white = true;
+        boolean white = false;
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
                 final Rectangle c = new Rectangle(50, 50);
@@ -137,11 +140,33 @@ public class VueControleur extends Application {
                     pieceRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            System.out.println("Size " + piece.coupsPossibles.size());
-                            for(int i = 0; i < piece.coupsPossibles.size(); i++) { 
+                            if(piece.couleur != p.joueurActuel.couleur) {
+                                return;
+                            }
+                            
+                            if(pieceSelectionnee == piece) {
+                                for(int i = 0; i < coupsPossiblesAffichage.size(); i++) {
+                                    gPane.getChildren().remove(coupsPossiblesAffichage.get(i));
+                                }
+                                coupsPossiblesAffichage.clear();
+                                pieceSelectionnee = null;
+                                return;
+                            }
+                            
+                            if(coupsPossiblesAffichage.size() > 0) {
+                                for(int i = 0; i < coupsPossiblesAffichage.size(); i++) {
+                                    gPane.getChildren().remove(coupsPossiblesAffichage.get(i));
+                                }
+                                coupsPossiblesAffichage.clear();
+                            }
+                            
+                            for(int i = 0; i < p.joueurActuel.coupsPossibles.get(piece).size(); i++) {
+                                Coup coup = p.joueurActuel.coupsPossibles.get(piece).get(i);
                                 final Rectangle moveRect = new Rectangle(50, 50);
                                 moveRect.setFill(new Color(1, 0, 0, 0.6));
-                                gPane.add(moveRect, piece.coupsPossibles.get(i).fin.y, 7-piece.coupsPossibles.get(i).fin.x);
+                                gPane.add(moveRect, coup.fin.y, 7-coup.fin.x);
+                                coupsPossiblesAffichage.add(moveRect);
+                                pieceSelectionnee = piece;
                             }
                         }
                     });

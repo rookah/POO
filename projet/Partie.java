@@ -15,9 +15,9 @@ import java.util.Observable;
  * @author p1410766
  */
 public class Partie extends Observable {
-    private Joueur[] joueurs;
-    private Joueur joueurActuel;
-    private Plateau plateau;
+    public Joueur[] joueurs;
+    public Joueur joueurActuel;
+    public Plateau plateau;
     
     public Partie(Joueur j1, Joueur j2) {
         joueurs = new Joueur[2];
@@ -66,7 +66,6 @@ public class Partie extends Observable {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             pair.setValue(plateau.coupsPossiblesPlateau((Piece) pair.getKey()));
-            it.remove();
         }
     }
     public Plateau getPlateau() {

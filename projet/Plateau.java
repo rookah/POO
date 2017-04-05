@@ -49,11 +49,13 @@ public class Plateau {
     }
     
     public ArrayList<Coup> coupsPossiblesPlateau(Piece p) {
-        ArrayList<Coup> ret = p.getCoupsPossiblesPiece();
-        for (int i = 0; i < ret.size(); i++) {
-            Position arrivee = ret.get(i).fin;
-            if (arrivee.x < 0 || arrivee.x > 7 || arrivee.y < 0 || arrivee.y > 7)
-                ret.remove(i);
+        ArrayList<Coup> temp = p.getCoupsPossiblesPiece();
+        ArrayList<Coup> ret = new ArrayList<Coup>();
+        for (int i = 0; i < temp.size(); i++) {
+            Position arrivee = temp.get(i).fin;
+            if (arrivee.x >= 0 && arrivee.x <= 7 && arrivee.y >= 0 && arrivee.y <= 7){
+                ret.add(temp.get(i));
+            }
         }
         return ret;
     }
