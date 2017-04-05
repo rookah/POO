@@ -13,9 +13,7 @@ public class Coup {
     public Position debut, fin;
     
     public Coup(Position _debut, Position _fin) {
-        debut.x = _debut.x;
-        debut.y = _debut.y;
-        fin.x = _fin.x;
-        fin.y = _fin.y;
+        debut = new Position(_debut.x, _debut.y);
+        fin = new Position(_fin.x, _fin.y);
     }
 }

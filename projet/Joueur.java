@@ -17,6 +17,8 @@ public class Joueur {
     public ArrayList<Coup> coupsPossibles;
     
     public Joueur(EnumCouleur _couleur) {
+        pieces = new ArrayList<Piece>();
+        coupsPossibles = new ArrayList<Coup>();
         couleur = _couleur;
     }
     

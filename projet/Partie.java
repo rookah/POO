@@ -52,7 +52,7 @@ public class Partie extends Observable {
             return joueurs[0];
     }
     
-    private void Test() {
+    public void Test() {
         rempliListeJoueurs();
         calculeCoupsPossiblesJoueurActuel();
     }
