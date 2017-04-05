@@ -6,12 +6,13 @@
 package projet;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author p1410766
  */
-public class Partie {
+public class Partie extends Observable {
     private Joueur[] joueurs;
     private Joueur joueurActuel;
     private Plateau plateau;
@@ -63,5 +64,8 @@ public class Partie {
             temp = plateau.coupsPossiblesPlateau(joueurActuel.pieces.get(i));
             joueurActuel.coupsPossibles.addAll(temp);
         }
+    }
+    public Plateau getPlateau() {
+        return plateau;
     }
 }
