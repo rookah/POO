@@ -56,6 +56,7 @@ public class VueControleur extends Application {
         // initialisation du modèle que l'on souhaite utiliser
         //m = new Modele();
         p = new Partie(new Joueur(EnumCouleur.BLANC), new Joueur(EnumCouleur.NOIR));
+        p.Test();
         
         // gestion du placement (permet de palcer le champ Text affichage en haut, et GridPane gPane au centre)
         BorderPane border = new BorderPane();
@@ -136,10 +137,11 @@ public class VueControleur extends Application {
                     pieceRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
+                            System.out.println("Size " + piece.coupsPossibles.size());
                             for(int i = 0; i < piece.coupsPossibles.size(); i++) { 
                                 final Rectangle moveRect = new Rectangle(50, 50);
-                                moveRect.setFill(new Color(1, 0, 0, 0.3));
-                                gPane.add(moveRect, piece.coupsPossibles.get(i).fin.x, 7-piece.coupsPossibles.get(i).fin.y);
+                                moveRect.setFill(new Color(1, 0, 0, 0.6));
+                                gPane.add(moveRect, piece.coupsPossibles.get(i).fin.y, 7-piece.coupsPossibles.get(i).fin.x);
                             }
                         }
                     });
