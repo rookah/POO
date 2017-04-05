@@ -53,7 +53,7 @@ public class Plateau {
         ArrayList<Coup> ret = new ArrayList<Coup>();
         for (int i = 0; i < temp.size(); i++) {
             Position arrivee = temp.get(i).fin;
-            if (arrivee.x >= 0 && arrivee.x <= 7 && arrivee.y >= 0 && arrivee.y <= 7){
+            if (arrivee.x >= 0 && arrivee.x <= 7 && arrivee.y >= 0 && arrivee.y <= 7 && getPieceGrille(arrivee) == null){
                 ret.add(temp.get(i));
             }
         }

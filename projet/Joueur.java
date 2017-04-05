@@ -26,12 +26,4 @@ public class Joueur {
     public void ajoutePiece(Piece p) {
         coupsPossibles.put(p, null);
     }
-    
-    public void clearCoupsPossibles() {
-        Iterator it = coupsPossibles.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            pair.setValue(null);
-        }
-    }
 }

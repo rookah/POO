@@ -60,7 +60,6 @@ public class Partie extends Observable {
     }
     
     public void calculeCoupsPossiblesJoueurActuel() {
-        joueurActuel.clearCoupsPossibles();
         ArrayList<Coup> temp;
         Iterator it = joueurActuel.coupsPossibles.entrySet().iterator();
         while (it.hasNext()) {
@@ -68,6 +67,16 @@ public class Partie extends Observable {
             pair.setValue(plateau.coupsPossiblesPlateau((Piece) pair.getKey()));
         }
     }
+    
+    public void joueCoup(Coup coup) {
+        plateau.appliqueCoup(coup);
+        joueurActuel = getJoueurSuivant();
+        rempliListeJoueurs();
+        calculeCoupsPossiblesJoueurActuel();
+        setChanged();
+        notifyObservers();
+    }
+    
     public Plateau getPlateau() {
         return plateau;
     }
