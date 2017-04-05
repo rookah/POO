@@ -13,39 +13,22 @@ import static projet.EnumCouleur.BLANC;
  */
 public class Pion extends Piece {
     
-    public Pion(EnumCouleur c) {
-        super(c);
+    public Pion(EnumCouleur _couleur) {
+        super(_couleur);
     }
 
     @Override
     public void calculeListeCoups(Plateau plat, Position pos) {
-        Coup temp = new Coup(pos, new Position(0, 0));
         if (couleur == BLANC) {
-            for (int i = -1; i <=1 ; i++) {
-                if (i < 0 || i > 7)
-                    continue;
-                temp.fin.x = temp.debut.x + 1;
-                temp.fin.y = temp.debut.y + i;
-                coupsPossibles.add(temp);
+            for (int y = -1; y <=1 ; y++) {
+                coupsPossibles.add(new Coup(pos, new Position(pos.x + 1, pos.y + y)));
             }
-            if (temp.debut.x == 1) {
-                temp.fin.x = temp.debut.x + 2;
-                temp.fin.y = temp.debut.y;
-                coupsPossibles.add(temp);
-            }
+                coupsPossibles.add(new Coup(pos, new Position(pos.x + 2, pos.y)));
         } else {
-            for (int i = -1; i <=1 ; i++) {
-                if (i < 0 || i > 7)
-                    continue;
-                temp.fin.x = temp.debut.x - 1;
-                temp.fin.y = temp.debut.y - i;
-                coupsPossibles.add(temp);
+            for (int y = -1; y <=1 ; y++) {
+                coupsPossibles.add(new Coup(pos, new Position(pos.x - 1, pos.y + y)));
             }
-            if (temp.debut.x == 6) {
-                temp.fin.x = temp.debut.x - 2;
-                temp.fin.y = temp.debut.y;
-                coupsPossibles.add(temp);
-            }
+                coupsPossibles.add(new Coup(pos, new Position(pos.x - 2, pos.y)));
         }
     }   
 }

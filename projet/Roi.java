@@ -17,7 +17,12 @@ public class Roi extends Piece {
 
     @Override
     public void calculeListeCoups(Plateau plat, Position pos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int x = -1; x <= 1; x++) {
+            for (int y = - 1; y <= 1; y++) {
+                if (x != 0 || y != 0)
+                    coupsPossibles.add(new Coup(pos, new Position(pos.x + x, pos.y + y)));
+            }
+        }
     }
     
 }

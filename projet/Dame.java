@@ -17,7 +17,17 @@ public class Dame extends Piece {
 
     @Override
     public void calculeListeCoups(Plateau plat, Position pos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 1; i <= 7; i++) {
+            coupsPossibles.add(new Coup(pos, new Position(pos.x + i, pos.y + i)));
+            coupsPossibles.add(new Coup(pos, new Position(pos.x + i, pos.y - i)));
+            coupsPossibles.add(new Coup(pos, new Position(pos.x - i, pos.y + i)));
+            coupsPossibles.add(new Coup(pos, new Position(pos.x - i, pos.y - i)));
+
+            coupsPossibles.add(new Coup(pos, new Position(pos.x + i, pos.y)));
+            coupsPossibles.add(new Coup(pos, new Position(pos.x - i, pos.y)));
+            coupsPossibles.add(new Coup(pos, new Position(pos.x, pos.y + i)));
+            coupsPossibles.add(new Coup(pos, new Position(pos.x, pos.y - i)));
+        }
     }
     
 }
