@@ -5,11 +5,13 @@
  */
 package projet;
 
+import java.util.Observable;
+
 /**
  *
  * @author p1410766
  */
-public class Partie {
+public class Partie extends Observable {
     private Joueur[] joueurs;
     private Joueur joueurActuel;
     private Plateau plateau;
@@ -45,5 +47,9 @@ public class Partie {
             return joueurs[1];
         else
             return joueurs[0];
+    }
+    
+    public Plateau getPlateau() {
+        return plateau;
     }
 }

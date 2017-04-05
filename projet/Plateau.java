@@ -23,15 +23,15 @@ public class Plateau {
             grille[6][i] = new Pion(EnumCouleur.NOIR);
             if (i == 0 || i == 7) {
                 grille[0][i] = new Tour(EnumCouleur.BLANC);
-                grille[0][i] = new Tour(EnumCouleur.NOIR);
+                grille[7][i] = new Tour(EnumCouleur.NOIR);
             }
             if (i == 1 || i == 6) {
                 grille[0][i] = new Cavalier(EnumCouleur.BLANC);
-                grille[0][i] = new Cavalier(EnumCouleur.NOIR);
+                grille[7][i] = new Cavalier(EnumCouleur.NOIR);
             }
             if (i == 2 || i == 5) {
                 grille[0][i] = new Fou(EnumCouleur.BLANC);
-                grille[0][i] = new Fou(EnumCouleur.NOIR);
+                grille[7][i] = new Fou(EnumCouleur.NOIR);
             }
         }
         grille[0][3] = new Dame(EnumCouleur.BLANC);

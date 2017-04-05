@@ -7,12 +7,14 @@
 package projet;
 
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,8 +23,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
-
 import javafx.scene.input.MouseEvent;
+
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -43,13 +45,17 @@ public class VueControleur extends Application {
     // modèle : ce qui réalise le calcule de l'expression
     //Modele m;
     // affiche la saisie et le résultat
-    Text affichage;
+    // Text affichage;
+    Partie p;
+    
+    ArrayList<Node> coupsPossibles;
     
     @Override
     public void start(Stage primaryStage) {
         
         // initialisation du modèle que l'on souhaite utiliser
         //m = new Modele();
+        p = new Partie(new Joueur(EnumCouleur.BLANC), new Joueur(EnumCouleur.NOIR));
         
         // gestion du placement (permet de palcer le champ Text affichage en haut, et GridPane gPane au centre)
         BorderPane border = new BorderPane();
@@ -61,7 +67,6 @@ public class VueControleur extends Application {
         int row = 0;
         
         // la vue observe les "update" du modèle, et réalise les mises à jour graphiques
-        Plateau p = new Plateau();
         
         Image pionn = new Image("file:res/pionn.png", 50, 50, false, false);
         Image damen = new Image("file:res/damen.png", 50, 50, false, false);
@@ -88,7 +93,7 @@ public class VueControleur extends Application {
                 }
                 gPane.add(c, j, 7-i);
                 
-                Piece piece = p.getPieceGrille(new Position(i, j));
+                Piece piece = p.getPlateau().getPieceGrille(new Position(i, j));
                 if(piece != null) { 
                     final Rectangle pieceRect = new Rectangle(50, 50);
                     if(piece instanceof Pion) {
@@ -128,8 +133,17 @@ public class VueControleur extends Application {
                             pieceRect.setFill(new ImagePattern(tourb));
                         }
                     }
+                    pieceRect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            for(int i = 0; i < piece.coupsPossibles.size(); i++) { 
+                                final Rectangle moveRect = new Rectangle(50, 50);
+                                moveRect.setFill(new Color(1, 0, 0, 0.3));
+                                gPane.add(moveRect, piece.coupsPossibles.get(i).fin.x, 7-piece.coupsPossibles.get(i).fin.y);
+                            }
+                        }
+                    });
                     gPane.add(pieceRect, j, 7-i);
-                    System.out.println(j + " " + (7-i));
                 }
                 white = !white;
             }
@@ -187,7 +201,7 @@ public class VueControleur extends Application {
         
         Scene scene = new Scene(border, Color.LIGHTBLUE);
         
-        primaryStage.setTitle("Calc FX");
+        primaryStage.setTitle("Jeu d'échec");
         primaryStage.setScene(scene);
         primaryStage.show();
         
