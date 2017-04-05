@@ -6,6 +6,8 @@
 package projet;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Observable;
 
 /**
@@ -52,17 +54,19 @@ public class Partie extends Observable {
             return joueurs[0];
     }
     
-    private void Test() {
+    public void Test() {
         rempliListeJoueurs();
         calculeCoupsPossiblesJoueurActuel();
     }
     
     public void calculeCoupsPossiblesJoueurActuel() {
-        joueurActuel.pieces.clear();
+        joueurActuel.clearCoupsPossibles();
         ArrayList<Coup> temp;
-        for (int i = 0; i < joueurActuel.pieces.size(); i++) {
-            temp = plateau.coupsPossiblesPlateau(joueurActuel.pieces.get(i));
-            joueurActuel.coupsPossibles.addAll(temp);
+        Iterator it = joueurActuel.coupsPossibles.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            pair.setValue(plateau.coupsPossiblesPlateau((Piece) pair.getKey()));
+            it.remove();
         }
     }
     public Plateau getPlateau() {

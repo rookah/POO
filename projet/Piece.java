@@ -17,6 +17,7 @@ public abstract class Piece {
     public ArrayList<Coup> coupsPossibles;
     
     public Piece(EnumCouleur _couleur) {
+        coupsPossibles = new ArrayList<Coup>();
         this.couleur = _couleur;
     }
     

@@ -19,7 +19,7 @@ public class Cavalier extends Piece {
     public void calculeListeCoups(Position pos) {
         coupsPossibles.clear();
         for (int x = 1; x <= 2; x++) {
-            int y = (x % 1) + 1;
+            int y = (x % 2) + 1;
             coupsPossibles.add(new Coup(pos, new Position(pos.x + x, pos.y + y)));
             coupsPossibles.add(new Coup(pos, new Position(pos.x + x, pos.y - y)));
             coupsPossibles.add(new Coup(pos, new Position(pos.x - x, pos.y + y)));

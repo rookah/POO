@@ -6,6 +6,9 @@
 package projet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
@@ -13,20 +16,23 @@ import java.util.ArrayList;
  */
 public class Joueur {
     public EnumCouleur couleur;
-    public ArrayList<Piece> pieces;
-    public ArrayList<Coup> coupsPossibles;
+    public Map<Piece, ArrayList<Coup>> coupsPossibles;
     
     public Joueur(EnumCouleur _couleur) {
+        coupsPossibles = new HashMap<Piece, ArrayList<Coup>>();
         couleur = _couleur;
     }
     
     public void ajoutePiece(Piece p) {
-        pieces.add(p);
+        coupsPossibles.put(p, null);
     }
     
-    public void calculeCoupsPossiblesJoueurActuel() {
-        for (int i = 0; i < pieces.size(); i++) {
-            
+    public void clearCoupsPossibles() {
+        Iterator it = coupsPossibles.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            pair.setValue(null);
+            it.remove();
         }
     }
 }
