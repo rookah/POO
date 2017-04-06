@@ -53,10 +53,24 @@ public class Plateau {
         ArrayList<Coup> ret = new ArrayList<Coup>();
         for (int i = 0; i < temp.size(); i++) {
             Position arrivee = temp.get(i).fin;
-            if (arrivee.x >= 0 && arrivee.x <= 7 && arrivee.y >= 0 && arrivee.y <= 7 && getPieceGrille(arrivee) == null){
+            if (arrivee.x >= 0 && arrivee.x <= 7 && arrivee.y >= 0 && arrivee.y <= 7 && getPieceGrille(arrivee).couleur != p.couleur){
                 ret.add(temp.get(i));
             }
         }
+        coupsPossiblesBloque(ret);
+        return ret;
+    }
+
+    //-> Enlève les coups où une pièce bloque la vision
+    public ArrayList<Coup> coupsPossiblesBloque(ArrayList<Coup> coups) {
+        ArrayList<Coup> ret;
+        for (int i = 0; i < coups.size; i++) {
+            Position arrivee = temp.get(i).fin;
+            if (getPieceGrille(arrivee) != null) { //Traitement ici
+
+            }
+        }
+            ;
         return ret;
     }
     
