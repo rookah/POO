@@ -111,12 +111,17 @@ public class Partie extends Observable {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             ArrayList<Coup> listeCoups = (ArrayList<Coup>) pair.getValue();
+            ArrayList<Coup> toRemove = new ArrayList<Coup>();
             if (listeCoups == null) continue;
-            for (Coup coup2 : listeCoups) {
-                if (verifieEchec(coup2)) {
-                    listeCoups.remove(coup2);
+            for (Coup coup : listeCoups) {
+                if (verifieEchec(coup)) {
+                    toRemove.add(coup);
                 }
             }
+            for (Coup coup : toRemove) {
+                listeCoups.remove(coup);
+            }
+            joueurActuel.coupsPossibles.put((Piece) pair.getKey(), listeCoups);
         }
     }
     
