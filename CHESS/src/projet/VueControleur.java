@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -18,6 +19,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
@@ -26,7 +29,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
@@ -51,6 +56,7 @@ public class VueControleur extends Application {
     ArrayList<Node> coupsPossiblesAffichage;
     ArrayList<Node> pieces;
     Piece pieceSelectionnee;
+    Label info;
 
     @Override
     public void start(Stage primaryStage) {
@@ -62,6 +68,8 @@ public class VueControleur extends Application {
 
         // gestion du placement (permet de palcer le champ Text affichage en haut, et GridPane gPane au centre)
         BorderPane border = new BorderPane();
+        
+        FlowPane root = new FlowPane();
 
         // permet de placer les diffrents boutons dans une grille
         GridPane gPane = new GridPane();
@@ -182,6 +190,12 @@ public class VueControleur extends Application {
                             pieces.add(pieceRect);
                         }
                     }
+                }
+                
+                if(p.joueurActuel.couleur == EnumCouleur.BLANC) {
+                    info.setText("Blanc joue");
+                } else {
+                    info.setText("Noir joue");
                 }
             }
         });
@@ -338,8 +352,34 @@ public class VueControleur extends Application {
             }
         });*/
         border.setCenter(gPane);
-
-        Scene scene = new Scene(border, Color.LIGHTBLUE);
+        root.getChildren().add(border);
+        
+        Button btnSauvegarde = new Button();
+        btnSauvegarde.setText("Sauvegarder");
+        btnSauvegarde.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                p.sauvergarder();
+            }
+        });
+        
+        
+        Button btnCharger = new Button();
+        btnCharger.setText("Charger");
+        btnCharger.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                p.charger();
+            }
+        });
+        
+        info = new Label();
+        info.setText("Blanc joue");
+        
+        root.getChildren().add(btnSauvegarde);
+        root.getChildren().add(btnCharger);
+        root.getChildren().add(info);
+        Scene scene = new Scene(root, Color.LIGHTBLUE);
 
         primaryStage.setTitle("Jeu d'échec");
         primaryStage.setScene(scene);

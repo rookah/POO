@@ -5,13 +5,14 @@
  */
 package projet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author p1410766
  */
-public class Plateau {
+public class Plateau implements Serializable {
     private Piece[][] grille;
     
     public Plateau() {
@@ -46,6 +47,17 @@ public class Plateau {
         Piece temp = getPieceGrille(coup.debut);
         grille[coup.debut.x][coup.debut.y] = null;
         grille[coup.fin.x][coup.fin.y] = temp;
+        if(temp instanceof Pion) {
+            if(temp.couleur == EnumCouleur.BLANC) {
+                if(coup.fin.x == 7) {
+                    grille[coup.fin.x][coup.fin.y] = new Dame(EnumCouleur.BLANC);
+                }
+            } else {
+                if(coup.fin.x == 0) {
+                    grille[coup.fin.x][coup.fin.y] = new Dame(EnumCouleur.NOIR);
+                }
+            }
+        }
     }
     
     public ArrayList<Coup> coupsPossiblesPlateau(Piece p) {

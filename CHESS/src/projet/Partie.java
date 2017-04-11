@@ -5,10 +5,19 @@
  */
 package projet;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -73,11 +82,49 @@ public class Partie extends Observable {
         joueurActuel = getJoueurSuivant();
         rempliListeJoueurs();
         calculeCoupsPossiblesJoueurActuel();
+        //sauvergarder();
         setChanged();
         notifyObservers();
     }
     
     public Plateau getPlateau() {
         return plateau;
+    }
+    
+    public void sauvergarder() {
+        File fichier = new File("sauvergarde.txt");
+        
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fichier));
+            oos.writeObject(plateau);
+            oos.writeInt((joueurActuel.couleur == EnumCouleur.BLANC) ? 0 : 1);
+            oos.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void charger() {
+        File fichier = new File("sauvergarde.txt");
+        
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fichier));
+            plateau = (Plateau)ois.readObject();
+            int joueur = ois.readInt();
+            if(joueur == 0) {
+                joueurActuel = joueurs[0];
+            } else {
+                joueurActuel = joueurs[1];
+            }
+            ois.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Partie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Test();
+        
+        setChanged();
+        notifyObservers();
     }
 }
