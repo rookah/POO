@@ -5,16 +5,17 @@
  */
 package projet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author p1410766
  */
-public abstract class Piece {
+public abstract class Piece implements Serializable {
     
     public EnumCouleur couleur;
-    public ArrayList<Coup> coupsPossibles;
+    public transient ArrayList<Coup> coupsPossibles;
     
     public Piece(EnumCouleur _couleur) {
         coupsPossibles = new ArrayList<Coup>();
@@ -25,5 +26,9 @@ public abstract class Piece {
         return coupsPossibles;
     }
             
-    public abstract void calculeListeCoups(Position pos);
+    public void calculeListeCoups(Position pos) {
+        if(coupsPossibles == null) {
+            coupsPossibles = new ArrayList<>();
+        }
+    }
 }

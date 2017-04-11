@@ -5,6 +5,7 @@
  */
 package projet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,7 +15,7 @@ import java.util.Map;
  *
  * @author p1410766
  */
-public class Joueur {
+public class Joueur implements Serializable {
     public EnumCouleur couleur;
     public Map<Piece, ArrayList<Coup>> coupsPossibles;
     

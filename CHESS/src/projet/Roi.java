@@ -17,6 +17,7 @@ public class Roi extends Piece {
 
     @Override
     public void calculeListeCoups(Position pos) {
+        super.calculeListeCoups(pos);
         coupsPossibles.clear();
         for (int x = -1; x <= 1; x++) {
             for (int y = - 1; y <= 1; y++) {
