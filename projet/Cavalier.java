@@ -17,6 +17,7 @@ public class Cavalier extends Piece {
 
     @Override
     public void calculeListeCoups(Position pos) {
+        super.calculeListeCoups(pos);
         coupsPossibles.clear();
         for (int x = 1; x <= 2; x++) {
             int y = (x % 2) + 1;

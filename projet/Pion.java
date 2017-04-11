@@ -19,6 +19,7 @@ public class Pion extends Piece {
 
     @Override
     public void calculeListeCoups(Position pos) {
+        super.calculeListeCoups(pos);
         coupsPossibles.clear();
         if (couleur == BLANC) {
             for (int y = -1; y <=1 ; y++) {
