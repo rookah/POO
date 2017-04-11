@@ -14,10 +14,14 @@ import java.util.ArrayList;
  */
 public class Plateau implements Serializable {
     private Piece[][] grille;
+    public Position positionRoiBlanc;
+    public Position positionRoiNoir;
     
     public Plateau() {
         grille = new Piece[8][8];
         initGrille();
+        positionRoiBlanc = new Position(0, 4);
+        positionRoiNoir = new Position(7, 4);
     }
     
     private void initGrille() {
@@ -47,7 +51,7 @@ public class Plateau implements Serializable {
         Piece temp = getPieceGrille(coup.debut);
         grille[coup.debut.x][coup.debut.y] = null;
         grille[coup.fin.x][coup.fin.y] = temp;
-        if(temp instanceof Pion) {
+        if (temp instanceof Pion) {
             if(temp.couleur == EnumCouleur.BLANC) {
                 if(coup.fin.x == 7) {
                     grille[coup.fin.x][coup.fin.y] = new Dame(EnumCouleur.BLANC);
@@ -57,6 +61,12 @@ public class Plateau implements Serializable {
                     grille[coup.fin.x][coup.fin.y] = new Dame(EnumCouleur.NOIR);
                 }
             }
+        }
+        if (temp instanceof Roi) {
+            if (temp.couleur == EnumCouleur.BLANC)
+                positionRoiBlanc = coup.fin;
+            else
+                positionRoiNoir = coup.fin;
         }
     }
     
