@@ -5,11 +5,13 @@
  */
 package projet;
 
+import java.io.Serializable;
+
 /**
  *
  * @author p1410766
  */
-public class Position {
+public class Position implements Serializable {
     int x, y;
     
     public Position(int _x, int _y) {

@@ -12,10 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Observable;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,8 +53,8 @@ public class Partie extends Observable {
     
     private boolean verifieEchec(Coup coup) {
         Piece p = plateau.getPieceGrille(coup.fin);
-        Position PositionRoi = joueurActuel.couleur == EnumCouleur.BLANC ? plateau.positionRoiBlanc : plateau.positionRoiNoir;
         plateau.appliqueCoup(coup);
+        Position PositionRoi = joueurActuel.couleur == EnumCouleur.BLANC ? plateau.positionRoiBlanc : plateau.positionRoiNoir;
         joueurActuel = getJoueurSuivant();
         rempliListeJoueurs();
         calculeCoupsPossiblesJoueurActuel();
@@ -85,6 +82,18 @@ public class Partie extends Observable {
         
         return ret;
     }
+
+    private boolean isMat() {
+        Iterator it = joueurActuel.coupsPossibles.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if(((ArrayList<Coup>)pair.getValue()).size() > 0) {
+                return false;
+            }
+        }
+        System.out.println("Mat");
+        return true;
+    }
     
     private Joueur getJoueurSuivant() {
         if (joueurActuel == joueurs[0])
@@ -96,6 +105,7 @@ public class Partie extends Observable {
     public void Test() {
         rempliListeJoueurs();
         calculeCoupsPossiblesJoueurActuel();
+        calculeCoupsPossiblesEchecs();
     }
     
     public void calculeCoupsPossiblesJoueurActuel() {
@@ -108,6 +118,7 @@ public class Partie extends Observable {
     
     public void calculeCoupsPossiblesEchecs() {    
         Iterator it = joueurActuel.coupsPossibles.entrySet().iterator();
+        Map<Piece, ArrayList<Coup>> tmp = new HashMap<Piece, ArrayList<Coup>>();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             ArrayList<Coup> listeCoups = (ArrayList<Coup>) pair.getValue();
@@ -121,8 +132,9 @@ public class Partie extends Observable {
             for (Coup coup : toRemove) {
                 listeCoups.remove(coup);
             }
-            joueurActuel.coupsPossibles.put((Piece) pair.getKey(), listeCoups);
+            tmp.put((Piece) pair.getKey(), listeCoups);
         }
+        joueurActuel.coupsPossibles = tmp;
     }
     
     public void joueCoup(Coup coup) {
@@ -131,6 +143,9 @@ public class Partie extends Observable {
         rempliListeJoueurs();
         calculeCoupsPossiblesJoueurActuel();
         calculeCoupsPossiblesEchecs();
+        if(isMat()) {
+            //System.out.println("Victoire pour " + ((joueurActuel.couleur == EnumCouleur.BLANC) ? "noir" : "blanc"));
+        }
         setChanged();
         notifyObservers();
     }
@@ -174,5 +189,10 @@ public class Partie extends Observable {
         
         setChanged();
         notifyObservers();
+    }
+
+    public void recommencer() {
+        plateau = new Plateau();
+        Test();
     }
 }

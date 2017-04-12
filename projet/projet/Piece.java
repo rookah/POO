@@ -28,7 +28,7 @@ public abstract class Piece implements Serializable {
             
     public void calculeListeCoups(Position pos) {
         if(coupsPossibles == null) {
-            coupsPossibles = new ArrayList<>();
+            coupsPossibles = new ArrayList<Coup>();
         }
     }
 }

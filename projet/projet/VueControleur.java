@@ -72,21 +72,21 @@ public class VueControleur extends Application {
         FlowPane root = new FlowPane();
 
         // permet de placer les diffrents boutons dans une grille
-        GridPane gPane = new GridPane();
+        final GridPane gPane = new GridPane();
 
-        Image pionn = new Image("file:res/pionn.png", 50, 50, false, false);
-        Image damen = new Image("file:res/damen.png", 50, 50, false, false);
-        Image roin = new Image("file:res/roin.png", 50, 50, false, false);
-        Image foun = new Image("file:res/foun.png", 50, 50, false, false);
-        Image cavaliern = new Image("file:res/cavaliern.png", 50, 50, false, false);
-        Image tourn = new Image("file:res/tourn.png", 50, 50, false, false);
+        final Image pionn = new Image("file:res/pionn.png", 50, 50, false, false);
+        final Image damen = new Image("file:res/damen.png", 50, 50, false, false);
+        final Image roin = new Image("file:res/roin.png", 50, 50, false, false);
+        final Image foun = new Image("file:res/foun.png", 50, 50, false, false);
+        final Image cavaliern = new Image("file:res/cavaliern.png", 50, 50, false, false);
+        final Image tourn = new Image("file:res/tourn.png", 50, 50, false, false);
 
-        Image pionb = new Image("file:res/pionb.png", 50, 50, false, false);
-        Image dameb = new Image("file:res/dameb.png", 50, 50, false, false);
-        Image roib = new Image("file:res/roib.png", 50, 50, false, false);
-        Image foub = new Image("file:res/foub.png", 50, 50, false, false);
-        Image cavalierb = new Image("file:res/cavalierb.png", 50, 50, false, false);
-        Image tourb = new Image("file:res/tourb.png", 50, 50, false, false);
+        final Image pionb = new Image("file:res/pionb.png", 50, 50, false, false);
+        final Image dameb = new Image("file:res/dameb.png", 50, 50, false, false);
+        final Image roib = new Image("file:res/roib.png", 50, 50, false, false);
+        final Image foub = new Image("file:res/foub.png", 50, 50, false, false);
+        final Image cavalierb = new Image("file:res/cavalierb.png", 50, 50, false, false);
+        final Image tourb = new Image("file:res/tourb.png", 50, 50, false, false);
         
         coupsPossiblesAffichage = new ArrayList<Node>();
         pieces = new ArrayList<Node>();
@@ -100,7 +100,7 @@ public class VueControleur extends Application {
                 pieces.clear();
                 for (int i = 0; i < 8; i++) {
                     for (int j = 0; j < 8; j++) {
-                        Piece piece = p.getPlateau().getPieceGrille(new Position(i, j));
+                        final Piece piece = p.getPlateau().getPieceGrille(new Position(i, j));
                         if (piece != null) {
                             final Rectangle pieceRect = new Rectangle(50, 50);
                             if (piece instanceof Pion) {
@@ -164,7 +164,7 @@ public class VueControleur extends Application {
                                     }
 
                                     for (int i = 0; i < p.joueurActuel.coupsPossibles.get(piece).size(); i++) {
-                                        Coup coup = p.joueurActuel.coupsPossibles.get(piece).get(i);
+                                        final Coup coup = p.joueurActuel.coupsPossibles.get(piece).get(i);
                                         final Rectangle moveRect = new Rectangle(50, 50);
                                         moveRect.setFill(new Color(1, 0, 0, 0.6));
                                         gPane.add(moveRect, coup.fin.y, 7 - coup.fin.x);
@@ -212,7 +212,7 @@ public class VueControleur extends Application {
                 }
                 gPane.add(c, j, 7 - i);
 
-                Piece piece = p.getPlateau().getPieceGrille(new Position(i, j));
+                final Piece piece = p.getPlateau().getPieceGrille(new Position(i, j));
                 if (piece != null) {
                     final Rectangle pieceRect = new Rectangle(50, 50);
                     if (piece instanceof Pion) {
@@ -276,7 +276,7 @@ public class VueControleur extends Application {
                             }
 
                             for (int i = 0; i < p.joueurActuel.coupsPossibles.get(piece).size(); i++) {
-                                Coup coup = p.joueurActuel.coupsPossibles.get(piece).get(i);
+                                final Coup coup = p.joueurActuel.coupsPossibles.get(piece).get(i);
                                 final Rectangle moveRect = new Rectangle(50, 50);
                                 moveRect.setFill(new Color(1, 0, 0, 0.6));
                                 gPane.add(moveRect, coup.fin.y, 7 - coup.fin.x);
@@ -306,51 +306,6 @@ public class VueControleur extends Application {
             white = !white;
         }
 
-        /*// création des bouton et placement dans la grille
-        for (String s : new String[]{"7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "+", "0", "-", "."}) {
-            
-            final Text t = new Text(s);
-            t.setWrappingWidth(30);
-            t.setFont(Font.font ("Verdana", 20));
-            t.setTextAlignment(TextAlignment.CENTER);
-            
-            gPane.add(t, column++, row);
-            
-            if (column > 3) {
-                column = 0;
-                row++;
-            }
-            
-            // un controleur (EventHandler) par bouton écoute et met à jour le champ affichage
-            t.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                
-                @Override
-                public void handle(MouseEvent event) {
-                    affichage.setText(affichage.getText() + t.getText());
-                }
-                
-            });
-            
-            
-            
-        }
-        
-        
-        
-        final Text t = new Text("=");
-        t.setWrappingWidth(30);
-        gPane.add(t, column++, row);
-        t.setTextAlignment(TextAlignment.CENTER);
-        //t.setEffect(new Shadow());
-        
-        // un controleur écoute le bouton "=" et déclenche l'appel du modèle
-        t.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            
-            @Override
-            public void handle(MouseEvent event) {
-                m.calc(affichage.getText());
-            }
-        });*/
         border.setCenter(gPane);
         root.getChildren().add(border);
         
@@ -372,10 +327,20 @@ public class VueControleur extends Application {
                 p.charger();
             }
         });
+
+        Button btnRecommencer = new Button();
+        btnRecommencer.setText("Recommencer");
+        btnRecommencer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                p.recommencer();
+            }
+        });
         
         info = new Label();
         info.setText("Blanc joue");
-        
+
+        root.getChildren().add(btnRecommencer);
         root.getChildren().add(btnSauvegarde);
         root.getChildren().add(btnCharger);
         root.getChildren().add(info);
